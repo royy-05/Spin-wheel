@@ -1,11 +1,12 @@
-# Use PHP with Apache
 FROM php:8.2-apache
 
-# Install mysqli
 RUN docker-php-ext-install mysqli
-
-# Enable Apache rewrite
 RUN a2enmod rewrite
 
-# Copy all project files to Apache
+# ADD THIS LINE:
+COPY apache.conf /etc/apache2/conf-available/servername.conf
+
+# ENABLE IT:
+RUN a2enconf servername
+
 COPY . /var/www/html/
